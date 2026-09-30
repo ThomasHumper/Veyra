@@ -1,0 +1,76 @@
+```cmake
+cmake_minimum_required(VERSION 3.16)
+
+project(
+    veyra
+    VERSION 0.1.0
+    LANGUAGES CXX
+)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
+add_executable(
+    veyra
+    src/main.cpp
+)
+
+if (MSVC)
+    target_compile_options(veyra PRIVATE /W4)
+else()
+    target_compile_options(veyra PRIVATE
+        -Wall
+        -Wextra
+        -Wpedantic
+    )
+endif()
+```
+
+### Project layout
+
+```text
+veyra/
+├── CMakeLists.txt
+├── README.md
+└── src/
+    └── main.cpp
+```
+
+### Build
+
+```bash
+cmake -S . -B build
+cmake --build build
+```
+
+Run it with:
+
+```bash
+./build/veyra
+```
+
+On Windows:
+
+```powershell
+.\build\Debug\veyra.exe
+```
+
+### Optional: install target
+
+If you want `cmake --install` support, add this:
+
+```cmake
+include(GNUInstallDirs)
+
+install(
+    TARGETS veyra
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+)
+```
+
+Then:
+
+```bash
+cmake --install build
+```
